@@ -15,11 +15,20 @@ class CreateDelegacionsTable extends Migration
     {
         Schema::create('delegacions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('numero');
-            $table->string('sede');            
-            $table->integer('region_id')->unsigned();
+            $table->integer('nomenclatura_id')->unsigned();
+            $table->integer('numero');
+            $table->string('sede', 128);
+            $table->unsignedInteger('nivel_id');
+            $table->integer('region_id')->unsigned();            
+            $table->string('delegacion');
+            $table->string('slug')->unique();            
+
+            #Llaves Foraneas
             $table->foreign('region_id')->references('id')->on('regions');
-            
+            $table->foreign('nomenclatura_id')->references('id')->on('nomenclaturas');            
+            $table->foreign('nivel_id')->references('id')->on('nivels'); 
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

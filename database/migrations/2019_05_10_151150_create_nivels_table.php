@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTallersTable extends Migration
+class CreateNivelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateTallersTable extends Migration
      */
     public function up()
     {
-        Schema::create('tallers', function (Blueprint $table) {
+        Schema::create('nivels', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('titulo',120);
-            $table->string('ponente');
-            $table->longText('descripcion');
-            $table->string('imagen_taller');
-            $table->integer('limite');
-
+            $table->string('nivel_educativo', 128);
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateTallersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tallers');
+        Schema::dropIfExists('nivels');
     }
 }

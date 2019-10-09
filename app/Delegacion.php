@@ -3,13 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Delegacion extends Model
 {
     protected $fillable = [
+        'nomenclatura_id',
         'numero',
-        'sede', 
-        'region_id',  
+        'sede',
+        'nivel_id',
+        'region_id',
+        'slug'        
     ]; 
 
     protected $table = 'delegacions';
@@ -20,6 +24,15 @@ class Delegacion extends Model
         return $this->belongsTo(Region::class);
     }
     
+    public function nomenclatura()
+    {
+        return $this->belongsTo(Nomenclatura::class);
+    }
+
+    public function nivel()
+    {
+        return $this->belongsTo(Nivel::class);
+    }    
     
     public function usuarios()
     {

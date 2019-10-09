@@ -24,26 +24,21 @@ Route::middleware(['auth','admin'])->group(function()
     Route::delete('/usuario/{id}', 'Admin\UsuarioController@destroy')->name('eliminar'); 
     Route::get('exportar-archivo/{type}', 'Admin\UsuarioController@exportar')->name('exportar_archivo');
 
-    #Creación de talleres para Congreso de Preescolar 2019
-    Route::get('/congreso-preescolar-2019/talleres','TallerController@index')->name('talleres');
-    Route::get('/congreso-preescolar-2019/nuevo_taller', 'TallerController@create')->name('registrar_taller'); # página para registrar nuevo taller
-    Route::post('/congreso-preescolar-2019/nuevo_taller', 'TallerController@store')->name('enviar_taller'); # almacena la información del taller
-    Route::get('/congreso-preescolar-2019/editar_taller/{id}', 'TallerController@edit')->name('editar_taller'); # página para editar taller seleccionado
-    Route::put('/congreso-preescolar-2019/editar_taller/{id}', 'TallerController@update')->name('actualizar_taller'); # página para editar taller seleccionado
-
+    # Regiones
+    Route::get('/regiones', 'Admin\RegionController@index')->name('mostrar.regiones'); // Mostrar Regiones
+    Route::put('/region/{slug}/edit', 'Admin\RegionController@update')->name('region.edit');
 });
 
 
-// Usuario 
-// Route::get('/', 'RegistrarUsuarioController@index')->name('inicio');
-// Route::post('/registro', 'RegistrarUsuarioController@store')->name('registro'); # Registrar usuarios
-// Route::get('/buscar', 'RegistrarUsuarioController@buscar')->name('buscar'); # Buscar registro
-// Route::get('/privacidad', 'RegistrarUsuarioController@privacidad')->name('privacidad'); # Página de privacidad
-
-// Registro Congreso Preescolar
-
+# Página inicial para registro 
 Route::get('/','RegistrarUsuarioController@index')->name('inicio');
-Route::group(['prefix'=>'congreso-preescolar-2019'], function()
+Route::post('/nuevo_usuario', 'RegistrarUsuarioController@store')->name('registrar.usuario'); # Registrar usuarios
+Route::get('/buscar', 'RegistrarUsuarioController@buscar')->name('buscar'); # Buscar registro
+Route::get('/privacidad', 'RegistrarUsuarioController@privacidad')->name('privacidad'); # Página de privacidad
+Route::get('/verificacion', 'RegistrarUsuarioController@verificacion')->name('verificacion'); # Página para verificar si estas registrado
+
+ 
+/* Route::group(['prefix'=>'congreso-preescolar-2019'], function()
 {
     Route::get('/mostrar_talleres','RegistrarUsuarioController@talleres')->name('mostrar_talleres'); # Página donde se muestran todos los talleres
     Route::get('/taller','RegistrarUsuarioController@taller')->name('taller'); # Página donde se muestran todos los talleres
@@ -56,7 +51,12 @@ Route::group(['prefix'=>'congreso-preescolar-2019'], function()
     Route::get('/buscar', 'RegistrarUsuarioController@buscar')->name('buscar'); # Buscar registro
     Route::get('/folio/{codigo_confirmacion}', 'RegistrarUsuarioController@folio')->name('folio'); # Exportar pdf
     Route::get('/privacidad', 'RegistrarUsuarioController@privacidad')->name('privacidad'); # Página de privacidad
-});
+}); */
+
+
+
+
+
 
 Route::get('/regiones/{id}/delegaciones','DelegacionController@delegaciones');
 

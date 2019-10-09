@@ -14,8 +14,8 @@ class UsersTableSeeder extends Seeder
     {
         // Creando un usuario DEFAULT
         User::create([
-            'name' => 'ADMIN',
-            'email' => 'root@intranet.snte56',
+            'name' => 'ADMINISTRADOR',
+            'email' => 'root@snte56',
             'password' => bcrypt('root2019'),
             'admin' => true           
         ]);

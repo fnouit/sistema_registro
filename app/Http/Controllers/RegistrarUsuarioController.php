@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Usuario;
 use App\Region;
 use App\Delegacion;
-use App\Taller;
 use PDF;
 
 class RegistrarUsuarioController extends Controller
@@ -19,7 +18,10 @@ class RegistrarUsuarioController extends Controller
      */
     public function index()
     {
-        return view ('congreso-preescolar.index');
+        #Obteniendo todas las regiónes
+        $regiones = Region::all();
+
+        return view('convocatoria_fisica_2019.index', compact('regiones'));
     }    
 
     /**
@@ -29,10 +31,10 @@ class RegistrarUsuarioController extends Controller
      */
     public function create()
     {
-        $regiones = Region::all();
+/*         $regiones = Region::all();
         $talleres = Taller::all();
 
-        return view ('congreso-preescolar.registro')->with(compact('regiones','talleres'));
+        return view ('congreso-preescolar.registro')->with(compact('regiones','talleres')); */
     }
 
     /**
@@ -43,106 +45,64 @@ class RegistrarUsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $talleres = Taller::all();
+        $mensaje = [
+            'nombre.required' => 'Es necesario ingresar un nombre para el registro',
+            'apellido_paterno.required'=>'Es necesario ingresar al menos un apellido',
+            'correo.required'=>'Hace falta tu correo electrónico ',
+            'correo.unique'=>'El correo electrónico que proporciono ya ha sido registrado',
+            'rfc.required'=>'Su RFC es necesario',
+            'numero_personal.required'=>'Su número personal es necesario para el registro',
+            'delegacion.required'=>'Es necesario saber a qué delegación perteneces ',
+            'numero_personal.unique'=>'El numero personal ya ha sido registrado',
+            'numero_personal.numeric' => 'Su número personal no debe contener ninguna letra',
+            'seleccion_taller.required' => 'Es necesario que selecciones un taller',
+            'zona_e.required' => 'Es necesario que ingreses la Zona Escolar a la que perteneces',
+            'clave_ct.required' => '¿Cúal es tu clave de centro de trabajo?'
+        ];
+        $reglas = [
+            'nombre' => 'required',
+            'apellido_paterno' => 'required',
+            'correo' => 'required|unique:usuarios,correo',            
+            'rfc' => 'required',
+            'delegacion' => 'required',             
+            'numero_personal'  => 'required|numeric|unique:usuarios,num_personal',
+            'zona_escolar' => 'required',
+            'ct' => 'required',
+        ];
 
-        if ($request->has('agremiado')) {
-            
-            $mensaje = [
-                'nombre.required' => 'Es necesario ingresar un nombre para el registro',
-                'apellido_paterno.required'=>'Es necesario ingresar al menos un apellido',
-                'correo.required'=>'Hace falta tu correo electrónico ',
-                'correo.unique'=>'El correo electrónico que proporciono ya ha sido registrado',
-                'rfc.required'=>'Su RFC es necesario',
-                'numero_personal.required'=>'Su número personal es necesario para el registro',
-                'delegacion.required'=>'Es necesario saber a qué delegación perteneces ',
-                'numero_personal.unique'=>'El numero personal ya ha sido registrado',
-                'numero_personal.numeric' => 'Su número personal no debe contener ninguna letra',
-                'seleccion_taller.required' => 'Es necesario que selecciones un taller',
-                'zona_e.required' => 'Es necesario que ingreses la Zona Escolar a la que perteneces',
-                'clave_ct.required' => '¿Cúal es tu clave de centro de trabajo?'
-            ];
-            $reglas = [
-                'nombre' => 'required',
-                'apellido_paterno' => 'required',
-                'correo' => 'required|unique:usuarios,correo',            
-                'rfc' => 'required',
-                'delegacion' => 'required',             
-                'numero_personal'  => 'required|numeric|unique:usuarios,num_personal',
-                'zona_escolar' => 'required',
-                'ct' => 'required',
-            ];
-
-            $this->validate($request, $reglas, $mensaje);
+        $this->validate($request, $reglas, $mensaje);
 
 
-            $usuario = new Usuario();
-            $usuario->nombre = strtoupper($request->nombre);
-            $usuario->apellido_p = strtoupper($request->apellido_paterno);
-            $usuario->apellido_m = strtoupper($request->apellido_materno);
-            $usuario->correo = $request->correo;
-            $usuario->rfc = strtoupper($request->rfc);
-            $usuario->genero = strtoupper($request->genero);
-            $usuario->telefono = $request->telefono;
-            $usuario->facebook = "/".$request->facebook;
-            $usuario->twitter = "@".$request->twitter;
+        $usuario = new Usuario();
+        $usuario->nombre = strtoupper($request->nombre);
+        $usuario->apellido_p = strtoupper($request->apellido_paterno);
+        $usuario->apellido_m = strtoupper($request->apellido_materno);
+        $usuario->correo = $request->correo;
+        $usuario->rfc = strtoupper($request->rfc);
+        $usuario->genero = strtoupper($request->genero);
+        $usuario->telefono = $request->telefono;
+        $usuario->facebook = "/".$request->facebook;
+        $usuario->twitter = "@".$request->twitter;
 
-            // $usuario->delegacion = strtoupper($request->delegacion);
-            $usuario->delegacion_id = $request->delegacion;
-            $usuario->num_personal = $request->numero_personal;
-            $usuario->zona_e = strtoupper($request->zona_escolar);
-            $usuario->clave_ct = strtoupper($request->ct);
+        // $usuario->delegacion = strtoupper($request->delegacion);
+        $usuario->delegacion_id = $request->delegacion;
+        $usuario->num_personal = $request->numero_personal;
+        $usuario->zona_e = strtoupper($request->zona_escolar);
+        $usuario->clave_ct = strtoupper($request->ct);
 
-            $usuario->agremiado = $request->agremiado;
+        $usuario->agremiado = $request->agremiado;
 
-            $usuario->codigo_confirmacion = strtoupper(str_random(8));
-            $usuario->slug = $usuario->codigo_confirmacion;
+        $usuario->codigo_confirmacion = strtoupper(str_random(8));
+        $usuario->slug = $usuario->codigo_confirmacion;
 
-
-            
-            $usuario->save();
-
-            
-        } elseif ($request->has('no_agremiado')) {
-            
-            $mensaje = [
-                'nombre.required' => 'Es necesario ingresar un nombre para el registro',
-                'apellido_paterno.required'=>'Es necesario ingresar al menos un apellido',
-                'correo.required'=>'Hace falta tu correo electrónico ',
-                'correo.unique'=>'El correo electrónico que proporciono ya ha sido registrado',
-                'rfc.required'=>'Su RFC es necesario',
-            ];
-            $reglas = [
-                'nombre' => 'required',
-                'apellido_paterno' => 'required',
-                'correo' => 'required|unique:usuarios,correo',            
-                'rfc' => 'required',
-            ];
-
-            $this->validate($request, $reglas, $mensaje);
-
-            $usuario = new Usuario();
-            $usuario->nombre = strtoupper($request->nombre);
-            $usuario->apellido_p = strtoupper($request->apellido_paterno);
-            $usuario->apellido_m = strtoupper($request->apellido_materno);
-            $usuario->correo = $request->correo;
-            $usuario->rfc = strtoupper($request->rfc);
-            $usuario->genero = strtoupper($request->genero);
-            $usuario->telefono = $request->telefono;
-            $usuario->facebook = "/".$request->facebook;
-            $usuario->twitter = "@".$request->twitter;
-
-            $usuario->agremiado = $request->no_agremiado;
-
-            $usuario->codigo_confirmacion = strtoupper(str_random(8));
-            $usuario->slug = $usuario->codigo_confirmacion;
-
-           // return $usuario;
-            $usuario->save();
+        return $usuario;
 
 
-        } 
         
-        return view('congreso-preescolar.selecciona_taller')->with(compact('usuario','talleres'));
+        // $usuario->save();
+        
+        
+        // return view('congreso-preescolar.selecciona_taller')->with(compact('usuario','talleres'));
     }
 
     public function actualizar_usuario_taller(Request $request, $id)

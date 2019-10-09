@@ -6,7 +6,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Intranet | @yield('titulo')</title>    
+        <title>Registro | @yield('titulo')</title>    
         <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" sizes="90x90"/>
         <!-- Plugins CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('css/plugins/plugins.css') }}" >
@@ -48,7 +48,6 @@
 
                     <ul class="navbar-nav mr-auto">                        
                         <li class="nav-item"><a data-scroll class="nav-link active" href="{{route('inicio')}}">Inicio</a></li>
-                        <li class="nav-item"><a data-scroll class="nav-link" href="{{route('mostrar_talleres')}}">Talleres</a></li>
                         <li class="nav-item"><a data-scroll class="nav-link" href="{{route('verificacion')}}">Buscar</a></li>
                     </ul>
                 </div>
@@ -65,17 +64,24 @@
 
                     <ul class="navbar-nav mr-auto">                        
                         <li class="nav-item"><a data-scroll class="nav-link active" href="{{ route('inicio')}}">Inicio</a></li>
-                        <li class="nav-item"><a data-scroll class="nav-link" href="{{ route('home')}}">Registros</a></li>
-                        <li class="nav-item"><a data-scroll class="nav-link" href="{{ url('/congreso-preescolar-2019/talleres')}}">Talleres</a></li>
                         <li class="nav-item"><a data-scroll class="nav-link" href="{{ route('verificacion')}}">Buscar</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto">                        
-                       <li class="nav-item dropdown">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#">
+                                Hola |  <span class="caret">{{ Auth::user()->name }}</span>                            
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Hola | {{ Auth::user()->name }} <span class="caret"></span>
+                                <i class="fa fa-cog" aria-hidden="true"></i>
                             </a>
     
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('mostrar.regiones')}}">Regiones</a>
+                                <a class="dropdown-item" href="#">Delegaciones</a>
+                                <a class="dropdown-item" href="{{ route('home')}}">Registros</a>
+                                <hr style="border-top: 1px dotted  white;">
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
@@ -86,7 +92,7 @@
                                     @csrf
                                 </form>
                             </div>
-                        </li>
+                        </li> 
                     </ul>
                 </div>
             </div>

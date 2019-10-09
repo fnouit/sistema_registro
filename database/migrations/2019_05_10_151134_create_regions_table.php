@@ -18,9 +18,10 @@ class CreateRegionsTable extends Migration
             $table->string('nombre');
             $table->string('sede');
             $table->string('coordinador');
-            $table->string('email');
-            $table->string('telefono');
-            $table->string('avatar');
+
+            #Datos de Ruta
+            $table->string('slug')->unique();
+                        
             $table->timestamps();
         });
     }

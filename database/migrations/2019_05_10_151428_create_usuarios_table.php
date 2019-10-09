@@ -14,6 +14,7 @@ class CreateUsuariosTable extends Migration
     public function up()
     {
         Schema::create('usuarios', function (Blueprint $table) {
+            #Datos Personales
             $table->increments('id');
             $table->string('nombre')->nullable();;
             $table->string('apellido_p')->nullable();
@@ -24,21 +25,23 @@ class CreateUsuariosTable extends Migration
             $table->string('telefono')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
+
+            #Datos Laborales
             $table->string('num_personal')->nullable();
+            $table->integer('delegacion_id')->unsigned()->nullable();
             $table->string('delegacion')->nullable();
+            $table->string('delegacion_opc')->nullable();
             $table->string('zona_e')->nullable();
             $table->string('clave_ct')->nullable();    
-            $table->boolean('confirmado')->default(0);
             $table->string('codigo_confirmacion')->nullable();     
-            $table->string('agremiado',128)->nullable();
-            $table->string('delegacion2',128)->nullable();
 
-            $table->integer('taller_id')->unsigned()->nullable();
-            $table->foreign('taller_id')->references('id')->on('tallers');            
+            #Datos de Ruta
+            $table->string('slug')->unique();
 
-            $table->integer('delegacion_id')->unsigned()->nullable();
+            #Llaves Foraneas
             $table->foreign('delegacion_id')->references('id')->on('delegacions');                        
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }
