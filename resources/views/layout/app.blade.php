@@ -79,7 +79,7 @@
     
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{route('mostrar.regiones')}}">Regiones</a>
-                                <a class="dropdown-item" href="#">Delegaciones</a>
+                                <a class="dropdown-item" href="{{route('mostrar.delegaciones')}}">Delegaciones</a>
                                 <a class="dropdown-item" href="{{ route('home')}}">Registros</a>
                                 <hr style="border-top: 1px dotted  white;">
                                 <a class="dropdown-item" href="{{ route('logout') }}"
@@ -195,6 +195,8 @@
         <!-- jQuery first, then Tether, then Bootstrap JS. -->
         <script type="text/javascript" src="{{ asset('js/plugins/plugins.js')}}"></script> 
         <script type="text/javascript" src="{{ asset('js/beauty.custom.js')}}"></script> 
+        <script type="text/javascript" src="{{ asset('js/listado.js')}}"></script> 
+
         <!--dz parallaxer-->
         <script type="text/javascript" src="{{ asset('dzsparallaxer/dzsparallaxer.js')}}"></script>
         <script type="text/javascript" src="{{ asset('dzsparallaxer/scroller.js')}}"></script>

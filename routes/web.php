@@ -27,6 +27,16 @@ Route::middleware(['auth','admin'])->group(function()
     # Regiones
     Route::get('/regiones', 'Admin\RegionController@index')->name('mostrar.regiones'); // Mostrar Regiones
     Route::put('/region/{slug}/edit', 'Admin\RegionController@update')->name('region.edit');
+
+    # Delegaciones
+    Route::get('/delegaciones', 'Admin\DelegacionController@index')->name('mostrar.delegaciones'); // Mostrar delegaciones
+    Route::get('/delegacion/crear', 'Admin\DelegacionController@create')->name('crear.delegacion'); // Crear delegaciones
+    Route::post('/delegacion', 'Admin\DelegacionController@store')->name('guardar.delegacion'); // Crear delegaciones
+    Route::delete('/delegacion/{slug}', 'Admin\DelegacionController@destroy')->name('borrar.delegacion'); // Borrar delegaciones
+
+    Route::put('/delegacion/{slug}/edit', 'Admin\DelegacionController@update')->name('delegacion.edit');
+    Route::get('/region/{id}/delegaciones', 'Admin\DelegacionController@delegaciones'); // Mostrar delegaciones por región
+    Route::get('/region/delegaciones', 'Admin\DelegacionController@delegacionesAll'); // Mostrar todas las delegaciones
 });
 
 

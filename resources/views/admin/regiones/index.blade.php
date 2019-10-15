@@ -36,9 +36,6 @@
                     <td>{{$region->sede}}</td>
                     <td>{{$region->coordinador}}</td>
                     <td>
-                        <!-- <a href="{{route('mostrar.regiones',[$region->slug])}}" class="btn btn-outline-primary btn-sm"><i
-                                        class="fa fa-edit fa-2x"></i></a> -->
-
                         <button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#exampleModal_{{$key+1}}" data-whatever="@getbootstrap"><i
                                 class="fa fa-edit fa-1x"></i></button>
