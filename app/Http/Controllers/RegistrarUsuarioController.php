@@ -11,11 +11,6 @@ use PDF;
 class RegistrarUsuarioController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         #Obteniendo todas las regiónes
@@ -24,11 +19,6 @@ class RegistrarUsuarioController extends Controller
         return view('convocatoria_fisica_2019.index', compact('regiones'));
     }    
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
 /*         $regiones = Region::all();
@@ -84,93 +74,39 @@ class RegistrarUsuarioController extends Controller
         $usuario->facebook = "/".$request->facebook;
         $usuario->twitter = "@".$request->twitter;
 
-        // $usuario->delegacion = strtoupper($request->delegacion);
         $usuario->delegacion_id = $request->delegacion;
+        $numero_delegacion = Delegacion::find($request->delegacion);
+        $usuario->delegacion = $numero_delegacion->delegacion;
+        
+        $usuario->delegacion_opc = $request->delegacion2;
+
         $usuario->num_personal = $request->numero_personal;
         $usuario->zona_e = strtoupper($request->zona_escolar);
         $usuario->clave_ct = strtoupper($request->ct);
 
-        $usuario->agremiado = $request->agremiado;
-
         $usuario->codigo_confirmacion = strtoupper(str_random(8));
         $usuario->slug = $usuario->codigo_confirmacion;
 
-        return $usuario;
-
-
-        
-        // $usuario->save();
-        
-        
-        // return view('congreso-preescolar.selecciona_taller')->with(compact('usuario','talleres'));
-    }
-
-    public function actualizar_usuario_taller(Request $request, $id)
-    {
-        
-        $usuario = Usuario::findorfail($id);     
-
-        $users = Usuario::where('taller_id',$request->seleccion_taller)->count();
-        
-        $taller = Taller::find($request->seleccion_taller);
-
-        if ($users < $taller->limite) {
-            $usuario->taller_id = $request->seleccion_taller;
-            $usuario->save();                        
-        } else {
-            $usuario->taller_id = 12;
-            $usuario->save();                          
-        }
-        
-        return view('congreso-preescolar.confirmar_registro')->with(compact('usuario','users','taller'));
-
-        // return $users;
-        // return $taller->limite;
-        
-
-/*         $mensaje = [
-            'seleccion_taller.required' => 'Debes seleccionar al menos un taller de la lista.',
-        ];
-        $reglas = [
-            'seleccion_taller' => 'required',
-        ];
-
-        $this->validate($request, $reglas, $mensaje);
-
-
-        $usuario = Usuario::find($slug); 
-        $usuario->taller_id = $request->seleccion_taller;
-        
-
         $usuario->save();
-
         
-        
-        return view('congreso-preescolar.confirmar_registro')->with(compact('usuario'));
- */
-
-
+        return redirect()->route('success', ['code' => $usuario->slug]);
     }
 
-    public function talleres()
+    public function success($code)
     {
-        $talleres = Taller::all();
-        return view ('congreso-preescolar.talleres')->with(compact('talleres'));
+        $usuario = Usuario::where('codigo_confirmacion', '=', $code)->firstOrFail();
+        return view('convocatoria_fisica_2019.success',compact('usuario'));
     }
+
+
+
+
 
     public function verificacion()
     {
         return view ('congreso-preescolar.verificacion');
     }
 
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show()
     {
         return view('confirmacion_registro');
