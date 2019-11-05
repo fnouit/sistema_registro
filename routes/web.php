@@ -33,9 +33,9 @@ Route::middleware(['auth','admin'])->group(function()
 # Página inicial para registro 
 Route::get('/','RegistrarUsuarioController@index')->name('inicio');
 Route::post('/nuevo_usuario', 'RegistrarUsuarioController@store')->name('registrar.usuario'); # Registrar usuarios
-// Route::get('/usuario_registrado/{code}',function(){})->name('success');
+Route::get('/confirmacion/{code}/registro', 'RegistrarUsuarioController@success')->name('success'); #Confirmación de registro
+Route::get('/descargar_folio/{folio}', 'RegistrarUsuarioController@folio')->name('descargar.folio'); # Descargar folio de registro
 
-Route::get('/confirmacion/{code}/registro', 'RegistrarUsuarioController@success')->name('success');
 
 Route::get('/buscar', 'RegistrarUsuarioController@buscar')->name('buscar'); # Buscar registro
 Route::get('/privacidad', 'RegistrarUsuarioController@privacidad')->name('privacidad'); # Página de privacidad
@@ -51,16 +51,19 @@ Route::get('/regiones/{id}/delegaciones','DelegacionController@delegaciones');
 
 # Ruta de creación de PDF
 
+// Route::get('generate-pdf','RegistrarUsuarioController@generatePDF');
+
+
 Route::get('/pdf', function()
 {
     
-    // $pdf = PDF::loadHtml('<h1>Prueba</h1>'); # Carga un HTML
+    // $pdf = PDF::loadHtml('<h1 style="color:red;">Prueba</h1>'); # Carga un HTML
     
-    $pdf = PDF::loadView('congreso-preescolar.pdf_export'); # Carga una vista 
+    // $pdf = PDF::loadView('congreso-preescolar.pdf_export'); # Carga una vista 
     
     
     // return $pdf->stream(); # muestra el PDF en una ventana
-    return $pdf->download(); # descarga el PDF
+    // return $pdf->download(); # descarga el PDF
 });;
 Auth::routes();
 

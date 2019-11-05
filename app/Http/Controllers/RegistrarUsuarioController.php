@@ -99,18 +99,30 @@ class RegistrarUsuarioController extends Controller
     }
 
 
-
-
-
-    public function verificacion()
+    public function folio($folio)
     {
-        return view ('congreso-preescolar.verificacion');
+        $usuario = Usuario::where('codigo_confirmacion', $folio)->get();
+        // $usuario = Usuario::find($codigo_confirmacion);
+        // return view ('congreso-preescolar.pdf_export')->with(compact('usuario'));
+
+    
+        $pdf = PDF::loadView('convocatoria_fisica_2019.pdf_export',['usuario' => $usuario]); # Carga una vista 
+    
+    
+        // return $pdf->stream(); # muestra el PDF en una ventana
+        return $pdf->download(); # descarga el PDF
+
+
     }
 
-    public function show()
-    {
-        return view('confirmacion_registro');
-    }
+
+
+
+
+
+
+
+
 
     public function buscar(Request $request)
     {
@@ -127,21 +139,6 @@ class RegistrarUsuarioController extends Controller
 
     }
 
-    public function folio($codigo_confirmacion)
-    {
-        $usuario = Usuario::where('codigo_confirmacion', $codigo_confirmacion)->get();
-        // $usuario = Usuario::find($codigo_confirmacion);
-        // return view ('congreso-preescolar.pdf_export')->with(compact('usuario'));
-
-    
-        $pdf = PDF::loadView('congreso-preescolar.pdf_export',['usuario' => $usuario]); # Carga una vista 
-    
-    
-        // return $pdf->stream(); # muestra el PDF en una ventana
-        return $pdf->download(); # descarga el PDF
-
-
-    }
 
     public function privacidad()
     {

@@ -73,9 +73,10 @@
             </tr>
             <tr id="tr-id-6" class="tr-class-5" data-index="5">
                 <td id="td-id-5" class="td-class-5" style="" colspan="2">
+                    <form action="{{route('descargar.folio',[$usuario->codigo_confirmacion])}}" method="get">
                     <button type="submit" data-btntext-sending="Sending..." class="button btn btn-primary">
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-                    DESCARGAR FOLIO</button>
+                    DESCARGAR FOLIO</button></form>
                 </td>
             </tr>
         </tbody>
