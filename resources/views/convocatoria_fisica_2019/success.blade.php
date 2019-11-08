@@ -55,7 +55,7 @@
             </tr>
             <tr id="tr-id-2" class="tr-class-2" data-index="1">
                 <td id="td-id-2" class="td-class-2" style="">DELEGACIÓN</td>
-                <td style="">{{$usuario->delegacion}}</td>
+                <td style="">{{$usuario->delegacion}} - {{$usuario->deleg->sede}} </td>
             </tr>
             <tr id="tr-id-3" class="tr-class-3" data-index="2">
                 <td id="td-id-3" class="td-class-3" style="">FECHA DE REGÍSTRO</td>

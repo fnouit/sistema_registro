@@ -90,9 +90,10 @@ class RegistrarUsuarioController extends Controller
         $usuario->codigo_confirmacion = strtoupper(str_random(8));
         $usuario->slug = $usuario->codigo_confirmacion;
 
+        $usuario->save();
         
-        // ENVIAR CORREO ELCTRÓNICO
         
+        // ENVIAR CORREO ELCTRÓNICO        
         $mensajeEmail = [
             'nombre' => $usuario->nombre,
             'ap' => $usuario->apellido_p,
@@ -102,11 +103,11 @@ class RegistrarUsuarioController extends Controller
             'folio' => $usuario->codigo_confirmacion,
         ];
 
-        // Mail::to($usuario->correo)->send(new ConfirmacionRegistro($mensajeEmail)); 
         #Utilizar QUEUE en vez de SEND
+        // Mail::to($usuario->correo)->send(new ConfirmacionRegistro($mensajeEmail)); 
         Mail::to($usuario->correo)->queue(new ConfirmacionRegistro($mensajeEmail)); 
         // return new ConfirmacionRegistro($mensajeEmail);
-        $usuario->save();
+
         return redirect()->route('success', ['code' => $usuario->slug]);
     }
 
@@ -121,25 +122,17 @@ class RegistrarUsuarioController extends Controller
     {
         $usuario = Usuario::where('codigo_confirmacion', $folio)->get();
         // $usuario = Usuario::find($codigo_confirmacion);
-        // return view ('congreso-preescolar.pdf_export')->with(compact('usuario'));
 
+        foreach ($usuario as $key => $u) {
+            $user = $u->nombre."_".$u->apellido_p."_".$u->apellido_m ;
+        }
+        
     
         $pdf = PDF::loadView('convocatoria_fisica_2019.pdf_export',['usuario' => $usuario]); # Carga una vista 
     
-    
         // return $pdf->stream(); # muestra el PDF en una ventana
-        return $pdf->download(); # descarga el PDF
-
-
+        return $pdf->download($user.'.pdf'); # descarga el PDF
     }
-
-
-
-
-
-
-
-
 
 
     public function buscar(Request $request)

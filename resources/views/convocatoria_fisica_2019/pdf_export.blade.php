@@ -6,18 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
-    <title>PDF Export</title>
+    <title>Registro</title>
 </head>
 <body>
     <div class="container pb30">
         <center>
-            <h1 style="color:orange;">SEGUNDO CONGRESO DE PREESCOLAR 2019</h1>
-            <h3 class="p-5" style="text-transform: uppercase;">“EDUCACIÓN SOCIOECONÓMICA EN PREESCOLAR. <br>PARADIGMA DEL SIGLO XXI”</h3>
+            <h1 style="color:orange;">CAMPAMENTO DEPORTIVO</h1>
+            <h3 class="p-5" style="text-transform: uppercase;">2019</h3>
             <hr>
             <div class="row">
                 @foreach($usuario as $u)
-
-                    
                     <table class="table table-bordered" style="border-collapse: separate;border-spacing:  5px 5px;">
                             <tbody>
                                 <tr>
@@ -38,23 +36,20 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">FECHA DEL EVENTO: </th>
-                                    <td>LUNES 10 DE JUNIO DE 2019, 09:00 hrs.</td>
+                                    <td>VIERNES 29 DE NOVIEMBRE 2019.</td>
                                 </tr>
                             </tbody>
                         </table> <br>
-
 
                     <p class="lead">
                         Gracias por registrarte, por favor ten a la mano tu código de verificación y muestralo el día del evento. <br>
                     </p>
 
-
                     <strong>CÓDIGO DE CONFIRMACIÓN</strong>
                     <div class="alert alert-warning" role="alert">
                         <p style="font-size:500%; border-style: dashed; margin:15px; ">{{$u->codigo_confirmacion}}</p>
                     </div>                    
-
-                    
+                   
                 @endforeach                            
             </div>
         </center>
