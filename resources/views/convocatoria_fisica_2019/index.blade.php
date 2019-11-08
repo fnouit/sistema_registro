@@ -39,7 +39,7 @@
 
             <div class="row">
                 <div class="col-sm-5  form-group">
-                    <label for="apellido_materno">CORREO ELECTRÓNICO</label>          
+                    <label for="apellido_materno">CORREO ELECTRÓNICO (VALIDO)</label>          
                     <input id="correo" type="email" name="correo" class="form-control" placeholder="*" value="{{old('correo')}}"  required >
                 </div>
                 <div class="col-sm-5  form-group">

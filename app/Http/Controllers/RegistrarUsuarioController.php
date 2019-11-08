@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\ConfirmacionRegistro;
+use Illuminate\Support\Facades\Mail;
+
 use App\Usuario;
 use App\Region;
 use App\Delegacion;
@@ -87,8 +90,23 @@ class RegistrarUsuarioController extends Controller
         $usuario->codigo_confirmacion = strtoupper(str_random(8));
         $usuario->slug = $usuario->codigo_confirmacion;
 
-        $usuario->save();
         
+        // ENVIAR CORREO ELCTRÓNICO
+        
+        $mensajeEmail = [
+            'nombre' => $usuario->nombre,
+            'ap' => $usuario->apellido_p,
+            'am' => $usuario->apellido_m,
+            'rfc' => $usuario->rfc,
+            'correo' => $usuario->correo,
+            'folio' => $usuario->codigo_confirmacion,
+        ];
+
+        // Mail::to($usuario->correo)->send(new ConfirmacionRegistro($mensajeEmail)); 
+        #Utilizar QUEUE en vez de SEND
+        Mail::to($usuario->correo)->queue(new ConfirmacionRegistro($mensajeEmail)); 
+        // return new ConfirmacionRegistro($mensajeEmail);
+        $usuario->save();
         return redirect()->route('success', ['code' => $usuario->slug]);
     }
 
