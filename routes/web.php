@@ -41,7 +41,10 @@ Route::post('/buscar', 'RegistrarUsuarioController@buscar')->name('buscar'); # B
 Route::get('/verificacion', 'RegistrarUsuarioController@verificacion')->name('verificacion'); # Página para verificar si estas registrado
 Route::get('/privacidad', 'RegistrarUsuarioController@privacidad')->name('privacidad'); # Página de privacidad
 
-
+# URL para descargar convocatoria en PDF
+Route::get('/convocatoria' , function (){
+    return url('http://sistema_registro.test/images/bg4.jpg');
+});
 
 
 
@@ -64,7 +67,7 @@ Route::get('/pdf', function()
     
     // return $pdf->stream(); # muestra el PDF en una ventana
     // return $pdf->download(); # descarga el PDF
-});;
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

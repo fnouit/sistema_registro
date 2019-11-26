@@ -11,7 +11,8 @@
 <body>
     <div class="container pb30">
         <center>
-            <h1 style="color:orange;">CAMPAMENTO DEPORTIVO</h1>
+            <h1 style="color:orange;">CAMPAMENTO <br> FRATERNIDAD SINDICAL</h1>
+            <h2 style="color:orange;">EDUCACIÓN FÍSICA</h2>
             <h3 class="p-5" style="text-transform: uppercase;">2019</h3>
             <hr>
             <div class="row">
@@ -36,7 +37,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">FECHA DEL EVENTO: </th>
-                                    <td>VIERNES 29 DE NOVIEMBRE 2019.</td>
+                                    <td>MARTES 03 DE DICIEMBRE 2019.</td>
                                 </tr>
                             </tbody>
                         </table> <br>

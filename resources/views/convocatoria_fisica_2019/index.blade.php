@@ -53,12 +53,17 @@
                     style='text-transform:uppercase' value="{{ old('apellido_materno')}}">
             </div>
         </div>
-
+     
         <div class="row">
             <div class="col-sm-5  form-group">
                 <label for="apellido_materno">CORREO ELECTRÓNICO (VALIDO)</label>
-                <input id="correo" type="email" name="correo" class="form-control" placeholder="*"
-                    value="{{old('correo')}}" required>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+                    </div>
+                    <input id="correo" type="email" name="correo" class="form-control" placeholder="*"
+                        value="{{old('correo')}}" required>
+                </div>
             </div>
             <div class="col-sm-5  form-group">
                 <label for="rfc">INGRESA TÚ RFC</label>
@@ -167,6 +172,11 @@
 </div>
 
 @stop
+
+
+@section('banner2')
+<a href="http://sistema_registro.test/images/bg4.jpg" class="btn btn-block btn-primary pt40 pb40 btn-lg">DESCARGA LA CONVOCATORIA .</a>
+@endsection
 
 @section('script')
 

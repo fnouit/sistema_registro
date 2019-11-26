@@ -67,7 +67,6 @@
             </tr>
             <tr id="tr-id-5" class="tr-class-5" data-index="4">
                 <td id="td-id-5" class="td-class-5" style="" colspan="2">
-                    <div class="th-inner "> <center> Se le enviara un email al correo electrónico que nos proporcionaste para confirmar su registro al evento.</center> </div>
                     <div class="fht-cell"></div>
                 </td>
             </tr>
