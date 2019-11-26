@@ -135,16 +135,22 @@ class RegistrarUsuarioController extends Controller
     }
 
 
+
+    public function busqueda() 
+    {
+        return view ('search_page');
+    }
+
+
     public function buscar(Request $request)
     {
-        // $num_personal = $request->get('np');      
-        // $usuario = Usuario::busqueda($num_personal)->get();
-        // return view ('busqueda')->with(compact('usuario'));
+        $num_personal = $request->get('num_personal');
+        $usuario = Usuario::busqueda($num_personal)->get();
+        return view('confirmacion_registro')->with(compact('usuario'));
 
-        $taller = Taller::all();
-        $correo = $request->get('correo');      
-        $usuario = Usuario::busqueda($correo)->get();
-        return view ('congreso-preescolar.busqueda')->with(compact('usuario','taller'));        
+        // $correo = $request->get('correo');      
+        // $usuario = Usuario::busqueda($correo)->get();
+        // return view ('convocatoria_fisica_2019.busqueda')->with(compact('usuario'));        
         
         // return view('congreso-preescolar.confirmar_registro')->with(compact('usuario'));
 

@@ -1,54 +1,107 @@
 @extends('layout.app')
-@section('titulo','Confirmación')
+@section('titulo','Busqueda')
 @section('container')
+<div class="container pt40 pb100">
+    <div class="row text-center">
+        <div class="col-md-10 mr-auto ml-auto">
+            @if(count($usuario)>0)
+            @foreach($usuario as $user)
+            <h3 class="font300 mb20 h2">USUARIO <span class="text-primary">REGISTRADO</span></h3>
+            <table data-toggle="bootstrap-table" data-search="true" data-show-columns="true"
+                class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="" data-field="0" colspan="4">
+                            <div class="th-inner ">
+                                <center> INFORMACIÓN </center>
+                            </div>
+                            <div class="fht-cell"></div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="" data-field="0">
+                            <div class="th-inner ">DATOS</div>
+                            <div class="fht-cell"></div>
+                        </th>
+                        <th style="" data-field="1">
+                            <div class="th-inner ">DESCRIPCIÓN</div>
+                            <div class="fht-cell"></div>
+                        </th>
 
-@section('banner')
-        <div class="dzsparallaxer auto-init height-is-based-on-content "  data-options='{   direction: "reverse"}'>
-            <div class="divimage dzsparallaxer--target " style="width: 101%; height: 130%; background-image: url(images/bg2.jpg)">
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="tr-id-1" class="tr-class-1" data-index="0" data-object="{&quot;key&quot;:&quot;value&quot;}"
+                        data-title="bootstrap table">
+                        <td id="td-id-1" class="td-class-1" style="" data-title="bootstrap table">NOMBRE</td>
+                        <td style="" data-i18n="Description">
+                            {{$user->nombre}}
+                            {{$user->apellido_p}}
+                            {{$user->apellido_m}}
+                        </td>
+                    </tr>
+                    <tr id="tr-id-2" class="tr-class-2" data-index="1">
+                        <td id="td-id-2" class="td-class-2" style="">DELEGACIÓN</td>
+                        <td style="">{{$user->delegacion}} - {{$user->deleg->sede}} </td>
+                    </tr>
+                    <tr id="tr-id-3" class="tr-class-3" data-index="2">
+                        <td id="td-id-3" class="td-class-3" style="">FECHA DE REGÍSTRO</td>
+                        <td style="">{{$user->created_at}}</td>
+                    </tr>
+                    <tr id="tr-id-4" class="tr-class-4" data-index="3">
+                        <td id="td-id-4" class="td-class-4" style="">FOLIO</td>
+                        <td style="">{{$user->codigo_confirmacion}}</td>
+                    </tr>
+                    <tr id="tr-id-6" class="tr-class-5" data-index="5">
+                        <td id="td-id-5" class="td-class-5" style="" colspan="2">
+                            <form action="{{route('descargar.folio',[$user->codigo_confirmacion])}}" method="get">
+                                <button type="submit" data-btntext-sending="Sending..." class="button btn btn-primary">
+                                    <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                                    DESCARGAR FOLIO</button></form>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot style="display: none;">
+                    <tr></tr>
+                </tfoot>
+            </table>
+
+
+
+
+
+
+            @endforeach
+            @else
+            <h3 class="font300 mb20 h2">NO HAY <span class="text-primary">REGISTRO</span></h3>
+            <div class="lead mb20">
+                No hay resultados que mostrar con la información que nos has proporcionado.
             </div>
-            <div class="semi-black-overlay"></div>
-            <div class="container pt100 pb100">
-                <div class="row">
-                    <div class="col-md-8 mr-auto ml-auto">
-                        <h3 class="h1 text-center font300 text-white">Confirmación</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="dzsprxseparator--2triangles"></div>
-        </div><!--parallax-->
-@endsection
-
-        <div class="container pt0 pb60">
-            <div class="row mb50">
-                <div class="col-md-10 ml-auto mr-auto text-center">
-                    <p class="lead">
-                        Muchas gracias <strong>{{$usuario->nombre}}</strong>, nuestra meta es brindar herramientas a los docentes para mejorar su desempeño profesional y de esta manera lograr la mejora de la calidad en la educación.
-                    </p>
-
-                </div>
-            </div>            
-            <div class="row mb50">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <a href="{{route('folio',[$usuario->codigo_confirmacion])}}" class="btn btn-outline-primary">
-                        <i class="fa fa-print fa-3x" aria-hidden="true"></i>
-                        Descarga tu FOLIO
-                    </a>                    
-                </div>
-            </div>            
+            <a href="/" class="btn btn-primary">
+                <i class="fa fa-print" aria-hidden="true"></i>
+                REGISTRATE AQUÍ
+            </a>
 
 
-            <div class="row mb50">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <a href=" {{ route('inicio') }} " style="margin-top:35px;box-sizing:border-box;border-radius:3px;color:#fff;display:inline-block;text-decoration:none;background-color:#ed8407;border-top:10px solid #ed8407;border-right:18px solid #ed8407;border-bottom:10px solid #ed8407;border-left:18px solid #ed8407">
-                        <i class="fa fa-home" aria-hidden="true"></i>                           
-                        Terminar proceso de registro
-                    </a>                                        
-                </div>
-            </div>            
-
-
-
-            <hr class="mb80">
+            @endif
         </div>
+    </div>
+</div>
+
+
+
+
+<hr>
+
+
+
+
+
+
+
+
+
+
+
 
 @stop

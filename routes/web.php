@@ -36,10 +36,10 @@ Route::post('/nuevo_usuario', 'RegistrarUsuarioController@store')->name('registr
 Route::get('/confirmacion/{code}/registro', 'RegistrarUsuarioController@success')->name('success'); #Confirmación de registro
 Route::get('/descargar_folio/{folio}', 'RegistrarUsuarioController@folio')->name('descargar.folio'); # Descargar folio de registro
 
-
-Route::get('/buscar', 'RegistrarUsuarioController@buscar')->name('buscar'); # Buscar registro
-Route::get('/privacidad', 'RegistrarUsuarioController@privacidad')->name('privacidad'); # Página de privacidad
+Route::get('/busqueda','RegistrarUsuarioController@busqueda')->name('buscar.usuario'); #Página para buscar usuario registrado
+Route::post('/buscar', 'RegistrarUsuarioController@buscar')->name('buscar'); # Buscar registro
 Route::get('/verificacion', 'RegistrarUsuarioController@verificacion')->name('verificacion'); # Página para verificar si estas registrado
+Route::get('/privacidad', 'RegistrarUsuarioController@privacidad')->name('privacidad'); # Página de privacidad
 
 
 
