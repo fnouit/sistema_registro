@@ -32,7 +32,7 @@
             </div>
         </form>
 
-        <div class="row align-items-center col-md-8">
+        <div class="row align-items-center col-md-12">
             <div class="mb20">
                 <strong>Total de Registros:</strong> 
                 <span class="badge badge-primary badge-pill" style="font-size:1.2em;">
@@ -45,8 +45,17 @@
                         <th scope="col">NO.</th>
                         <th scope="col" colspan="3">NOMBRE</th>
                         <th scope="col">CORREO</th>
+                        <th scope="col">TELEFONO</th>
                         <th scope="col">NÚMERO PERSONAL</th>
+                        <th scope="col">RFC</th>
+                        <th scope="col">GENERO</th>
+                        <th scope="col">FACEBOOK</th>
+                        <th scope="col">TWITTER</th>
                         <th scope="col">DELEGACIÓN</th>
+                        <th scope="col">REGIÓN</th>
+                        <th scope="col">DELEG-OPC</th>
+                        <th scope="col">ZONA E</th>
+                        <th scope="col">CLAVE</th>
                         <th scope="col">CÓDIGO</th>
                         <th scope="col">EDICIÓN</th>
                     </tr>
@@ -57,8 +66,19 @@
                                 <td> {{ $key+1 }} </td>
                                 <td colspan="3" style="text-transform: uppercase;"> {{ $usuario->nombre }} {{ $usuario->apellido_p }} {{ $usuario->apellido_m }}</td>
                                 <td> {{ $usuario->correo}} </td>
+                                <td> {{ $usuario->telefono}} </td>
                                 <td style="text-transform: uppercase;"> {{ $usuario->num_personal }} </td>
-                                <td style="text-transform: uppercase;"> {{ $usuario->delegacion }} </td>
+                                <td style="text-transform: uppercase;"> {{ $usuario->rfc }} </td>
+                                <td style="text-transform: uppercase;"> {{ $usuario->genero }} </td>
+                                <td> {{ $usuario->facebook}} </td>
+                                <td> {{ $usuario->twitter}} </td>
+                                <td style="text-transform: uppercase;"> {{ $usuario->delegacion }} / {{$usuario->deleg->nomenclatura->nomenclatura}} {{$usuario->deleg->numero}} {{$usuario->deleg->sede}} </td>
+                                <td style="text-transform: uppercase;"> {{ $usuario->deleg->region->nombre }}-{{ $usuario->deleg->region->sede }} </td>
+                                <td style="text-transform: uppercase;"> {{ $usuario->delegacion_opc }} </td>
+                                <td style="text-transform: uppercase;"> {{ $usuario->zona_e }} </td>
+                                <td style="text-transform: uppercase;"> {{ $usuario->clave_ct }} </td>
+
+
                                 <td style="text-transform: uppercase;"> {{ $usuario->codigo_confirmacion }} </td>
                                 <td class="text-center"> <a href=" {{ url('/usuario/'.$usuario->id) }}"><i class="fa fa-cog fa-2x" aria-hidden="true"></i> </a></td>
                             </tr>

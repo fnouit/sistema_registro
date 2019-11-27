@@ -17,9 +17,17 @@ class RegistrarUsuarioController extends Controller
     public function index()
     {
         #Obteniendo todas las regiónes
+        $registros = Usuario::count();
         $regiones = Region::all();
 
-        return view('convocatoria_fisica_2019.index', compact('regiones'));
+        if ($registros >= 201) {
+            // return "Ha superado el limite de registros";
+            return view('convocatoria_fisica_2019.limit');
+        } else {
+            // return "Continua registrando";
+            return view('convocatoria_fisica_2019.index', compact('regiones'));
+        }
+
     }    
 
     public function create()
