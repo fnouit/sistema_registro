@@ -43,8 +43,12 @@ Route::get('/privacidad', 'RegistrarUsuarioController@privacidad')->name('privac
 
 # URL para descargar convocatoria en PDF
 Route::get('/convocatoria' , function (){
-    return url('http://sistema_registro.test/images/bg4.jpg');
-});
+    #return url('http://sistema_registro.test/descargas/CAMPAMENTO_DEPORTIVO_2019.jpg');
+
+    $file= public_path(). "/descargas/CAMPAMENTO_DEPORTIVO_2019.jpg";   
+
+    return response()->download($file);    
+})->name('convocatoria');
 
 
 

@@ -175,7 +175,7 @@
 
 
 @section('banner2')
-<a href="http://sistema_registro.test/images/bg4.jpg" class="btn btn-block btn-primary pt40 pb40 btn-lg">DESCARGA LA CONVOCATORIA .</a>
+<a href="{{route('convocatoria')}}" class="btn btn-block btn-primary pt40 pb40 btn-lg">DESCARGA LA CONVOCATORIA .</a>
 @endsection
 
 @section('script')
